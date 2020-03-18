@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuariosService {
+
+  constructor(public http: HttpClient) { }
+
+  obtenerUsuarios() {
+    let params = new HttpParams().append('page', '1');
+    params = params.append('nombre', 'Carlos');
+
+    return this.http.get('https://reqres111.in/api/user', { params })
+      .pipe(
+        map(res => {
+          return (res as any).data;
+        }),
+      );
+  }
+
+}
